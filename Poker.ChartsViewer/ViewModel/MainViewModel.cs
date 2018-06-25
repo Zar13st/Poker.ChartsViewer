@@ -2,10 +2,24 @@
 
 namespace Poker.Charts.ViewModel
 {
-    class MainViewModel : ViewModelBase
+    public class MainViewModel : ViewModelBase
     {
-        public ChartsManagerViewModel LeftChartsManager { get; set; } = new ChartsManagerViewModel();
+        public MainViewModel()
+        {
+            LeftChartsManager = new ChartsManagerViewModel();
 
-        public ChartsManagerViewModel RightChartsManager { get; set; } = new ChartsManagerViewModel();
+            RightChartsManager = new ChartsManagerViewModel();
+        }
+
+        public ChartsManagerViewModel LeftChartsManager { get; private set; } 
+
+        public ChartsManagerViewModel RightChartsManager { get; private set; }
+
+        public void Begin()
+        {
+            LeftChartsManager.GetChartsGroups();
+
+            RightChartsManager.GetChartsGroups();
+        }
     }
 }

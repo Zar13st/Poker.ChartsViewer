@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Poker.Charts.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,22 @@ namespace Poker.ChartsViewer
     /// </summary>
     public partial class MainWindow : Window
     {
+        public MainViewModel MainViewModel { get; private set; }
+
         public MainWindow()
         {
             InitializeComponent();
+
+            Loaded += Begin;
+        }
+
+        private void Begin(object sender, RoutedEventArgs e)
+        {
+            var mv = new MainViewModel();
+
+            mv.Begin();
+
+            DataContext = mv;
         }
     }
 }
