@@ -25,17 +25,25 @@
         <Image Source="C:\Pets\Poker.ChartsViewer\Poker.ChartsViewer\bin\Debug\Data\01.UTG_a\4b_EPvs.png" Grid.Column="3" Grid.Row="1"/>
 
 
-        <ListBox ItemsSource="{Binding LeftChartsManager.ChartsGroups}"  Grid.Column="1">
-            <ListBox.ItemTemplate>
+        <ListBox ItemsSource="{Binding LeftChartsManager.ChartsGroups}"  Grid.Column="1" Grid.RowSpan="2" >
+            <ListBox.ItemTemplate >
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <Button Content ="{Binding Name}" Width="100"  Height="50"/>
-                    </StackPanel>
+                    <TextBlock Text="{Binding Name}" FontSize="18"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <Button Content="{Binding LeftChartsManager.CurrentMainChart}" Grid.Column="2" />
+        <Button Content="{Binding LeftChartsManager.CurrentMainChart}" Grid.Column="2" Grid.RowSpan="2"/>
+
+        <ListBox ItemsSource="{Binding RightChartsManager.ChartsGroups}"  Grid.Column="4" Grid.RowSpan="2">
+            <ListBox.ItemTemplate >
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}" FontSize="18"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Button Content="{Binding RightChartsManager.CurrentMainChart}" Grid.Column="5" Grid.RowSpan="2"/>
 
     </Grid>
 </Window>
