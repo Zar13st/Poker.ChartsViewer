@@ -14,14 +14,17 @@ namespace Poker.Charts.ViewModel
     {
         private string _currentMainChart;
         private string _currentSecondaryChart;
-        private ChartsGroupsProvider _chartsGroupsProvider = new ChartsGroupsProvider();
+
+        private ChartsGroupsProvider _chartsGroupsProvider;
 
         public ChartsManagerViewModel()
         {
-           
+            _chartsGroupsProvider = new ChartsGroupsProvider();
         }
 
         public ObservableCollection<ChartsGroupViewModel> ChartsGroups { get; set; } = new ObservableCollection<ChartsGroupViewModel>();
+
+        public ObservableCollection<ChartViewModel> CurrentGroupCharts { get; set; } = new ObservableCollection<ChartViewModel>();
 
         public string CurrentMainChart
         {
@@ -58,12 +61,12 @@ namespace Poker.Charts.ViewModel
         
         public void GetChartsGroups()
         {
-            foreach (var i in _chartsGroupsProvider.GetChartsGroups())
+            foreach (var chartsGroup in _chartsGroupsProvider.GetChartsGroups())
             {
-                ChartsGroups.Add(i);
+                ChartsGroups.Add(chartsGroup);
             }
-
-            CurrentMainChart = ChartsGroups[0].Name;
         }
+
+
     }
 }

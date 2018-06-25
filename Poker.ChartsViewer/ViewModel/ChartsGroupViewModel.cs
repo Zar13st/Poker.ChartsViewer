@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Poker.ChartsViewer.ViewModel
 {
     public class ChartsGroupViewModel
     {
         public string Name { get; set; }
+
+        public string Path { get; set; }
+
+        public List<ChartViewModel> ChartsInGroup { get; } = new List<ChartViewModel>();
     }
 }

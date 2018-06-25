@@ -72,6 +72,7 @@
     <Compile Include="Model\ChartsGroupsProvider.cs" />
     <Compile Include="ViewModel\ChartsGroupViewModel.cs" />
     <Compile Include="ViewModel\ChartsManagerViewModel.cs" />
+    <Compile Include="ViewModel\ChartViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
