@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Poker.ChartsViewer", "Poker.ChartsViewer\Poker.ChartsViewer.csproj", "{705A9F2E-599A-4332-97C8-F6CB88243F7A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{705A9F2E-599A-4332-97C8-F6CB88243F7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{705A9F2E-599A-4332-97C8-F6CB88243F7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{705A9F2E-599A-4332-97C8-F6CB88243F7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{705A9F2E-599A-4332-97C8-F6CB88243F7A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9AB7CB78-413C-4A5F-8C6E-9DF4F71C0B1B}
+	EndGlobalSection
+EndGlobal
