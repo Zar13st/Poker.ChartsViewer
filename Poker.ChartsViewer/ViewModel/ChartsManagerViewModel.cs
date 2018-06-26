@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 using Poker.ChartsViewer.Model;
 using Poker.ChartsViewer.ViewModel;
 using System;
@@ -15,7 +16,13 @@ namespace Poker.Charts.ViewModel
         private string _currentMainChart;
         private string _currentSecondaryChart;
 
+        private ChartsGroupViewModel _currentGroup;
+        private ChartViewModel _currentChart;
+
         private ChartsGroupsProvider _chartsGroupsProvider;
+
+        private RelayCommand<ChartsGroupViewModel> _selectedGroupChangedCommand;
+        private RelayCommand<ChartViewModel> _selectedChartChangedCommand;
 
         public ChartsManagerViewModel()
         {
@@ -67,6 +74,52 @@ namespace Poker.Charts.ViewModel
             }
         }
 
+
+        public RelayCommand<ChartsGroupViewModel> SelectedGroupChangedCommand
+        {
+            get
+            {
+                return _selectedGroupChangedCommand ?? (_selectedGroupChangedCommand = new RelayCommand<ChartsGroupViewModel>((selectedItem) =>
+                {
+                    _currentGroup = selectedItem;
+
+                    CurrentGroupCharts.Clear();
+
+                    foreach (var chart in selectedItem.ChartsInGroup)
+                    {
+                        CurrentGroupCharts.Add(chart);
+                    }
+
+                    if (CurrentGroupCharts.Count != 0)
+                    {
+                        _currentChart = CurrentGroupCharts.FirstOrDefault(c => c.IsMainChart);
+
+                        if (_currentChart == null)
+                        {
+                            _currentChart = CurrentGroupCharts.FirstOrDefault();
+                        }
+
+                        CurrentMainChart = _currentChart.Path;
+                    }
+                }));
+            }
+        }
+
+        public RelayCommand<ChartViewModel> SelectedChartChangedCommand
+        {
+            get
+            {
+                return _selectedChartChangedCommand ?? (_selectedChartChangedCommand = new RelayCommand<ChartViewModel>((selectedItem) =>
+                {
+                    if (selectedItem != null)
+                    {
+                        _currentChart = selectedItem;
+
+                        CurrentMainChart = selectedItem.Path;
+                    }
+                }));
+            }
+        }
 
     }
 }

@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:Poker.ChartsViewer"
         mc:Ignorable="d"
         Title="Poker Charts Viewer">
@@ -19,13 +20,19 @@
             <ColumnDefinition Width="0.1*" />
             <ColumnDefinition Width="0.1*" />
         </Grid.ColumnDefinitions>
-        <Image Source="C:\Pets\Poker.ChartsViewer\Poker.ChartsViewer\bin\Debug\Data\01.UTG_a\4b_EPvs.png" />
-        <Image Source="C:\Pets\Poker.ChartsViewer\Poker.ChartsViewer\bin\Debug\Data\01.UTG_a\4b_EPvs.png" Grid.Row="1"/>
-        <Image Source="C:\Pets\Poker.ChartsViewer\Poker.ChartsViewer\bin\Debug\Data\01.UTG_a\4b_EPvs.png" Grid.Column="3"/>
-        <Image Source="C:\Pets\Poker.ChartsViewer\Poker.ChartsViewer\bin\Debug\Data\01.UTG_a\4b_EPvs.png" Grid.Column="3" Grid.Row="1"/>
 
 
-        <ListBox ItemsSource="{Binding LeftChartsManager.ChartsGroups}"  Grid.Column="1" Grid.RowSpan="2" >
+        <Image Source="{Binding LeftChartsManager.CurrentMainChart}" />
+        
+        <!--<Image Source="C:\Pets\Poker.ChartsViewer\Poker.ChartsViewer\bin\Debug\Data\01.UTG_a\4b_EPvs.png" Grid.Row="1"/>-->
+
+        <ListBox x:Name="leftGroupsListBox" ItemsSource="{Binding LeftChartsManager.ChartsGroups}" Grid.Column="1" Grid.RowSpan="2" SelectionMode="Single">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding LeftChartsManager.SelectedGroupChangedCommand}"  CommandParameter="{Binding ElementName=leftGroupsListBox, Path=SelectedItem}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            
             <ListBox.ItemTemplate >
                 <DataTemplate>
                     <TextBlock Text="{Binding Name}" FontSize="18"/>
@@ -33,9 +40,13 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <Button Content="{Binding LeftChartsManager.CurrentMainChart}" Grid.Column="2" Grid.RowSpan="2"/>
+        <ListBox x:Name="leftChartsListBox" ItemsSource="{Binding LeftChartsManager.CurrentGroupCharts}"  Grid.Column="2" Grid.RowSpan="2" SelectionMode="Single">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding LeftChartsManager.SelectedChartChangedCommand}"  CommandParameter="{Binding ElementName=leftChartsListBox, Path=SelectedItem}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
 
-        <ListBox ItemsSource="{Binding RightChartsManager.ChartsGroups}"  Grid.Column="4" Grid.RowSpan="2">
             <ListBox.ItemTemplate >
                 <DataTemplate>
                     <TextBlock Text="{Binding Name}" FontSize="18"/>
@@ -43,7 +54,39 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <Button Content="{Binding RightChartsManager.CurrentMainChart}" Grid.Column="5" Grid.RowSpan="2"/>
+
+
+        <Image Source="{Binding RightChartsManager.CurrentMainChart}" Grid.Column="3"/>
+        
+        <!--<Image Source="C:\Pets\Poker.ChartsViewer\Poker.ChartsViewer\bin\Debug\Data\01.UTG_a\4b_EPvs.png" Grid.Column="3" Grid.Row="1"/>-->
+
+        <ListBox x:Name="rigthGroupsListBox" ItemsSource="{Binding RightChartsManager.ChartsGroups}"  Grid.Column="4" Grid.RowSpan="2" SelectionMode="Single">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding RightChartsManager.SelectedGroupChangedCommand}"  CommandParameter="{Binding ElementName=rigthGroupsListBox, Path=SelectedItem}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
+            <ListBox.ItemTemplate >
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}" FontSize="18"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <ListBox x:Name="rigthChartsListBox" ItemsSource="{Binding RightChartsManager.CurrentGroupCharts}"  Grid.Column="5" Grid.RowSpan="2" SelectionMode="Single">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding RightChartsManager.SelectedChartChangedCommand}"  CommandParameter="{Binding ElementName=rigthChartsListBox, Path=SelectedItem}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
+            <ListBox.ItemTemplate >
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}" FontSize="18"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
     </Grid>
 </Window>
