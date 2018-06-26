@@ -5,9 +5,11 @@ using Poker.ChartsViewer.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace Poker.Charts.ViewModel
 {
@@ -19,14 +21,20 @@ namespace Poker.Charts.ViewModel
         private ChartsGroupViewModel _currentGroup;
         private ChartViewModel _currentChart;
 
+        private ButtonsColorManager _buttonsColorManager;
         private ChartsGroupsProvider _chartsGroupsProvider;
 
         private RelayCommand<ChartsGroupViewModel> _selectedGroupChangedCommand;
+        private RelayCommand _changeGroupBackGroundColorCommand;
         private RelayCommand<ChartViewModel> _selectedChartChangedCommand;
 
-        public ChartsManagerViewModel()
+        public ChartsManagerViewModel(ButtonsColorManager buttonsColorManager)
         {
-            _chartsGroupsProvider = new ChartsGroupsProvider();
+            Contract.Assert(buttonsColorManager != null, "buttonsColorManager != null");
+
+            _buttonsColorManager = buttonsColorManager;
+
+            _chartsGroupsProvider = new ChartsGroupsProvider(buttonsColorManager);
         }
 
         public ObservableCollection<ChartsGroupViewModel> ChartsGroups { get; set; } = new ObservableCollection<ChartsGroupViewModel>();
@@ -117,6 +125,26 @@ namespace Poker.Charts.ViewModel
 
                         CurrentMainChart = selectedItem.Path;
                     }
+                }));
+            }
+        }
+
+        public RelayCommand ChangeGroupBackGroundColorCommand
+        {
+            get
+            {
+                return _changeGroupBackGroundColorCommand ?? (_changeGroupBackGroundColorCommand = new RelayCommand(() =>
+                {
+                    var MyDialog = new System.Windows.Forms.ColorDialog();
+
+                    if (MyDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        var wpfColor = Color.FromArgb(MyDialog.Color.A, MyDialog.Color.R, MyDialog.Color.G, MyDialog.Color.B);
+
+                        _currentGroup.BackGroundColor = new SolidColorBrush(wpfColor);
+                    }
+
+                    _buttonsColorManager.UpdateGroupBackGroundColor(_currentGroup);
                 }));
             }
         }

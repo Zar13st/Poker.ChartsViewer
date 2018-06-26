@@ -26,33 +26,47 @@
         
         <!--<Image Source="C:\Pets\Poker.ChartsViewer\Poker.ChartsViewer\bin\Debug\Data\01.UTG_a\4b_EPvs.png" Grid.Row="1"/>-->
 
-        <ListBox x:Name="leftGroupsListBox" ItemsSource="{Binding LeftChartsManager.ChartsGroups}" Grid.Column="1" Grid.RowSpan="2" SelectionMode="Single">
+        <ListView x:Name="leftGroupsListBox" ItemsSource="{Binding LeftChartsManager.ChartsGroups}" Grid.Column="1" Grid.RowSpan="2" SelectionMode="Single">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction Command="{Binding LeftChartsManager.SelectedGroupChangedCommand}"  CommandParameter="{Binding ElementName=leftGroupsListBox, Path=SelectedItem}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
-            
-            <ListBox.ItemTemplate >
-                <DataTemplate>
-                    <TextBlock Text="{Binding Name}" FontSize="18"/>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
 
-        <ListBox x:Name="leftChartsListBox" ItemsSource="{Binding LeftChartsManager.CurrentGroupCharts}"  Grid.Column="2" Grid.RowSpan="2" SelectionMode="Single">
+            <ListView.ItemTemplate >
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}" FontSize="18" Background="{Binding BackGroundColor}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Command="{Binding LeftChartsManager.ChangeGroupBackGroundColorCommand}" Header="Change Color" />
+                </ContextMenu>
+            </ListView.ContextMenu>
+        </ListView>
+
+        <ListView x:Name="leftChartsListBox" ItemsSource="{Binding LeftChartsManager.CurrentGroupCharts}"  Grid.Column="2" Grid.RowSpan="2" SelectionMode="Single">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction Command="{Binding LeftChartsManager.SelectedChartChangedCommand}"  CommandParameter="{Binding ElementName=leftChartsListBox, Path=SelectedItem}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
 
-            <ListBox.ItemTemplate >
+            <ListView.ItemTemplate >
                 <DataTemplate>
-                    <TextBlock Text="{Binding Name}" FontSize="18"/>
+                    <TextBlock Text="{Binding Name}" FontSize="18" Background="{Binding BackGroundColor}"/>
                 </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+            </ListView.ItemTemplate>
+
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Command="{Binding LeftChartsManager.ChangeGroupBackGroundColorCommand}" Header="Change Color" />
+                    <MenuItem Command="{Binding LeftChartsManager.ChangeGroupBackGroundColorCommand}" Header="Set Main" />
+                    <MenuItem Command="{Binding LeftChartsManager.ChangeGroupBackGroundColorCommand}" Header="Add Second Chart" />
+                </ContextMenu>
+            </ListView.ContextMenu>
+        </ListView>
 
 
 
@@ -60,33 +74,39 @@
         
         <!--<Image Source="C:\Pets\Poker.ChartsViewer\Poker.ChartsViewer\bin\Debug\Data\01.UTG_a\4b_EPvs.png" Grid.Column="3" Grid.Row="1"/>-->
 
-        <ListBox x:Name="rigthGroupsListBox" ItemsSource="{Binding RightChartsManager.ChartsGroups}"  Grid.Column="4" Grid.RowSpan="2" SelectionMode="Single">
+        <ListView x:Name="rigthGroupsListBox" ItemsSource="{Binding RightChartsManager.ChartsGroups}"  Grid.Column="4" Grid.RowSpan="2" SelectionMode="Single">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction Command="{Binding RightChartsManager.SelectedGroupChangedCommand}"  CommandParameter="{Binding ElementName=rigthGroupsListBox, Path=SelectedItem}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
 
-            <ListBox.ItemTemplate >
+            <ListView.ItemTemplate >
                 <DataTemplate>
-                    <TextBlock Text="{Binding Name}" FontSize="18"/>
+                    <TextBlock Text="{Binding Name}" FontSize="18" Background="{Binding BackGroundColor}"/>
                 </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+            </ListView.ItemTemplate>
 
-        <ListBox x:Name="rigthChartsListBox" ItemsSource="{Binding RightChartsManager.CurrentGroupCharts}"  Grid.Column="5" Grid.RowSpan="2" SelectionMode="Single">
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Command="{Binding RightChartsManager.ChangeGroupBackGroundColorCommand}" Header="Change Color" />
+                </ContextMenu>
+            </ListView.ContextMenu>
+        </ListView>
+
+        <ListView x:Name="rigthChartsListBox" ItemsSource="{Binding RightChartsManager.CurrentGroupCharts}"  Grid.Column="5" Grid.RowSpan="2" SelectionMode="Single">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction Command="{Binding RightChartsManager.SelectedChartChangedCommand}"  CommandParameter="{Binding ElementName=rigthChartsListBox, Path=SelectedItem}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
 
-            <ListBox.ItemTemplate >
+            <ListView.ItemTemplate >
                 <DataTemplate>
-                    <TextBlock Text="{Binding Name}" FontSize="18"/>
+                    <TextBlock Text="{Binding Name}" FontSize="18" Background="{Binding BackGroundColor}"/>
                 </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+            </ListView.ItemTemplate>
+        </ListView>
 
     </Grid>
 </Window>

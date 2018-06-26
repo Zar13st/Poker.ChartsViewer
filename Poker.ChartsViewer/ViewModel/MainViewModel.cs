@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using Poker.ChartsViewer.Model;
 
 namespace Poker.Charts.ViewModel
 {
@@ -6,10 +7,14 @@ namespace Poker.Charts.ViewModel
     {
         public MainViewModel()
         {
-            LeftChartsManager = new ChartsManagerViewModel();
+            _buttonColorManager  = new ButtonsColorManager();
 
-            RightChartsManager = new ChartsManagerViewModel();
+            LeftChartsManager = new ChartsManagerViewModel(_buttonColorManager);
+
+            RightChartsManager = new ChartsManagerViewModel(_buttonColorManager);
         }
+
+        private ButtonsColorManager _buttonColorManager;
 
         public ChartsManagerViewModel LeftChartsManager { get; private set; } 
 
@@ -17,6 +22,8 @@ namespace Poker.Charts.ViewModel
 
         public void Begin()
         {
+            _buttonColorManager.ReadButtonsColorFromFile();
+
             LeftChartsManager.GetChartsGroups();
 
             RightChartsManager.GetChartsGroups();

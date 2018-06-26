@@ -1,6 +1,7 @@
 ﻿using Poker.ChartsViewer.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.IO;
 using System.Linq;
 
@@ -9,6 +10,15 @@ namespace Poker.ChartsViewer.Model
     public class ChartsGroupsProvider
     {
         private readonly string _pathToCharts = $"{Environment.CurrentDirectory}\\Data";
+
+        private ButtonsColorManager _buttonsColorManager;
+
+        public ChartsGroupsProvider(ButtonsColorManager buttonsColorManager)
+        {
+            Contract.Assert(buttonsColorManager != null, "buttonsColorManager != null");
+
+            _buttonsColorManager = buttonsColorManager;
+        }
 
         public IEnumerable<ChartsGroupViewModel> GetChartsGroups()
         {
@@ -23,20 +33,26 @@ namespace Poker.ChartsViewer.Model
 
             foreach (var group in groups)
             {
+                var groupName = group.Split('\\').Last();
+
                 var chartsGroup = new ChartsGroupViewModel()
                 {
                     Path = group,
-                    Name = group.Split('\\').Last(),
+                    Name = groupName,
+                    BackGroundColor = _buttonsColorManager.GetButtonBackGroundColor(groupName),
                 };
 
                 var charts = Directory.EnumerateFiles(group);
 
                 foreach(var chart in charts)
                 {
+                    var chartName = chart.Split('\\').Last().Split('.').First();
+
                     chartsGroup.ChartsInGroup.Add(new ChartViewModel()
                     {
                         Path = chart,
-                        Name = chart.Split('\\').Last().Split('.').First(),
+                        Name = chartName,
+                        BackGroundColor = _buttonsColorManager.GetButtonBackGroundColor(chartName),
                     });
                 }
 
