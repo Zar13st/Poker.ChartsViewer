@@ -144,7 +144,27 @@ namespace Poker.Charts.ViewModel
                         _currentGroup.BackGroundColor = new SolidColorBrush(wpfColor);
                     }
 
-                    _buttonsColorManager.UpdateGroupBackGroundColor(_currentGroup);
+                    _buttonsColorManager.UpdateGroupBackGroundColor(_currentGroup.Name, _currentGroup.BackGroundColor);
+                }));
+            }
+        }
+
+        public RelayCommand ChangeChartBackGroundColorCommand
+        {
+            get
+            {
+                return _changeGroupBackGroundColorCommand ?? (_changeGroupBackGroundColorCommand = new RelayCommand(() =>
+                {
+                    var MyDialog = new System.Windows.Forms.ColorDialog();
+
+                    if (MyDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        var wpfColor = Color.FromArgb(MyDialog.Color.A, MyDialog.Color.R, MyDialog.Color.G, MyDialog.Color.B);
+
+                        _currentChart.BackGroundColor = new SolidColorBrush(wpfColor);
+                    }
+
+                    _buttonsColorManager.UpdateGroupBackGroundColor(_currentChart.Name, _currentChart.BackGroundColor);
                 }));
             }
         }

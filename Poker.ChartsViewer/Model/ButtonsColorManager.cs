@@ -82,9 +82,9 @@ namespace Poker.ChartsViewer.Model
             }
         }
 
-        public void UpdateGroupBackGroundColor(ChartsGroupViewModel group)
+        public void UpdateGroupBackGroundColor(string name, SolidColorBrush color)
         {
-            _buttonColorByName[group.Name] = group.BackGroundColor;
+            _buttonColorByName[name] = color;
 
             UpdateFile();
         }

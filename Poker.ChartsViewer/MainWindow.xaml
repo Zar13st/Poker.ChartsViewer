@@ -61,7 +61,7 @@
 
             <ListView.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Command="{Binding LeftChartsManager.ChangeGroupBackGroundColorCommand}" Header="Change Color" />
+                    <MenuItem Command="{Binding LeftChartsManager.ChangeChartBackGroundColorCommand}" Header="Change Color" />
                     <MenuItem Command="{Binding LeftChartsManager.ChangeGroupBackGroundColorCommand}" Header="Set Main" />
                     <MenuItem Command="{Binding LeftChartsManager.ChangeGroupBackGroundColorCommand}" Header="Add Second Chart" />
                 </ContextMenu>
