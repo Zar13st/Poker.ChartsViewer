@@ -7,9 +7,27 @@ namespace Poker.ChartsViewer.ViewModel
     {
         private SolidColorBrush _backGroundColor;
 
+        private string _secondChartPath;
+
         public string Name { get; set; }
 
         public string Path { get; set; }
+
+        public string SecondChartPath
+        {
+            get
+            {
+                return _secondChartPath;
+            }
+            set
+            {
+                if (_secondChartPath != value)
+                {
+                    _secondChartPath = value;
+                    base.RaisePropertyChanged();
+                }
+            }
+        }
 
         public bool IsMainChart { get; set; }
 

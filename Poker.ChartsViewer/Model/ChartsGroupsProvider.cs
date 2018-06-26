@@ -1,4 +1,5 @@
-﻿using Poker.ChartsViewer.ViewModel;
+﻿using Poker.ChartsViewer.Constants;
+using Poker.ChartsViewer.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
@@ -12,12 +13,16 @@ namespace Poker.ChartsViewer.Model
         private readonly string _pathToCharts = $"{Environment.CurrentDirectory}\\Data";
 
         private ButtonsColorManager _buttonsColorManager;
+        private SecondChartManager _secondChartManager;
 
-        public ChartsGroupsProvider(ButtonsColorManager buttonsColorManager)
+        public ChartsGroupsProvider(ButtonsColorManager buttonsColorManager, SecondChartManager secondChartManager)
         {
             Contract.Assert(buttonsColorManager != null, "buttonsColorManager != null");
+            Contract.Assert(secondChartManager != null, "secondChartManager != null");
 
             _buttonsColorManager = buttonsColorManager;
+
+            _secondChartManager = secondChartManager;
         }
 
         public IEnumerable<ChartsGroupViewModel> GetChartsGroups()
@@ -53,6 +58,7 @@ namespace Poker.ChartsViewer.Model
                         Path = chart,
                         Name = chartName,
                         BackGroundColor = _buttonsColorManager.GetButtonBackGroundColor(chartName),
+                        SecondChartPath = _secondChartManager.GetSecondChartPath(SecondChartKeyProvider.GetKey(groupName, chartName)),
                     });
                 }
 

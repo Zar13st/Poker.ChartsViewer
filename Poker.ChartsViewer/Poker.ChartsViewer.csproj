@@ -71,8 +71,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Constants\FileTextSpliters.cs" />
     <Compile Include="Model\ButtonsColorManager.cs" />
     <Compile Include="Model\ChartsGroupsProvider.cs" />
+    <Compile Include="Model\SecondChartManager.cs" />
     <Compile Include="ViewModel\ChartsGroupViewModel.cs" />
     <Compile Include="ViewModel\ChartsManagerViewModel.cs" />
     <Compile Include="ViewModel\ChartViewModel.cs" />

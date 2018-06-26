@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using Poker.ChartsViewer.Constants;
 using Poker.ChartsViewer.Model;
 using Poker.ChartsViewer.ViewModel;
 using System;
@@ -22,24 +23,35 @@ namespace Poker.Charts.ViewModel
         private ChartViewModel _currentChart;
 
         private ButtonsColorManager _buttonsColorManager;
+        private SecondChartManager _secondChartManager;
         private ChartsGroupsProvider _chartsGroupsProvider;
 
         private RelayCommand<ChartsGroupViewModel> _selectedGroupChangedCommand;
-        private RelayCommand _changeGroupBackGroundColorCommand;
         private RelayCommand<ChartViewModel> _selectedChartChangedCommand;
 
-        public ChartsManagerViewModel(ButtonsColorManager buttonsColorManager)
+        private RelayCommand _changeGroupBackGroundColorCommand;
+        private RelayCommand _changeChartBackGroundColorCommand;
+        private RelayCommand _setSecondChartCommand;
+        private RelayCommand _deleteSecondChartCommand;
+
+
+        public ChartsManagerViewModel(ButtonsColorManager buttonsColorManager, SecondChartManager secondChartManager)
         {
             Contract.Assert(buttonsColorManager != null, "buttonsColorManager != null");
+            Contract.Assert(secondChartManager != null, "secondChartManager != null");
 
             _buttonsColorManager = buttonsColorManager;
 
-            _chartsGroupsProvider = new ChartsGroupsProvider(buttonsColorManager);
+            _secondChartManager = secondChartManager;
+
+            _chartsGroupsProvider = new ChartsGroupsProvider(buttonsColorManager, secondChartManager);
         }
 
         public ObservableCollection<ChartsGroupViewModel> ChartsGroups { get; set; } = new ObservableCollection<ChartsGroupViewModel>();
 
         public ObservableCollection<ChartViewModel> CurrentGroupCharts { get; set; } = new ObservableCollection<ChartViewModel>();
+
+        public event Func<string> OnSecondChartAdding;
 
         public string CurrentMainChart
         {
@@ -57,7 +69,7 @@ namespace Poker.Charts.ViewModel
             }
         }
 
-        public string CurrentSecondaryChart
+        public string SecondChartPath
         {
             get
             {
@@ -73,15 +85,27 @@ namespace Poker.Charts.ViewModel
             }
         }
 
-        
         public void GetChartsGroups()
         {
+            ChartsGroups.Clear();
+
             foreach (var chartsGroup in _chartsGroupsProvider.GetChartsGroups())
             {
                 ChartsGroups.Add(chartsGroup);
             }
         }
 
+        public string GetSecondChartPath()
+        {
+            if (_currentChart != null)
+            {
+                return _currentChart.Path;
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
 
         public RelayCommand<ChartsGroupViewModel> SelectedGroupChangedCommand
         {
@@ -108,6 +132,7 @@ namespace Poker.Charts.ViewModel
                         }
 
                         CurrentMainChart = _currentChart.Path;
+                        SecondChartPath = _currentChart.SecondChartPath;
                     }
                 }));
             }
@@ -124,6 +149,7 @@ namespace Poker.Charts.ViewModel
                         _currentChart = selectedItem;
 
                         CurrentMainChart = selectedItem.Path;
+                        SecondChartPath = _currentChart.SecondChartPath;
                     }
                 }));
             }
@@ -153,7 +179,7 @@ namespace Poker.Charts.ViewModel
         {
             get
             {
-                return _changeGroupBackGroundColorCommand ?? (_changeGroupBackGroundColorCommand = new RelayCommand(() =>
+                return _changeChartBackGroundColorCommand ?? (_changeChartBackGroundColorCommand = new RelayCommand(() =>
                 {
                     var MyDialog = new System.Windows.Forms.ColorDialog();
 
@@ -165,6 +191,38 @@ namespace Poker.Charts.ViewModel
                     }
 
                     _buttonsColorManager.UpdateGroupBackGroundColor(_currentChart.Name, _currentChart.BackGroundColor);
+                }));
+            }
+        }
+
+        public RelayCommand SetSecondChartCommand
+        {
+            get
+            {
+                return _setSecondChartCommand ?? (_setSecondChartCommand = new RelayCommand(() =>
+                {
+                    var secondChartPath = OnSecondChartAdding?.Invoke();
+
+                    SecondChartPath = secondChartPath;
+
+                    _currentChart.SecondChartPath = secondChartPath;
+
+                    _secondChartManager.UpdateSecondCharts(SecondChartKeyProvider.GetKey(_currentGroup.Name, _currentChart.Name), secondChartPath);
+                }));
+            }
+        }
+ 
+        public RelayCommand DeleteSecondChartCommand
+        {
+            get
+            {
+                return _deleteSecondChartCommand ?? (_deleteSecondChartCommand = new RelayCommand(() =>
+                {
+                    SecondChartPath = string.Empty;
+
+                    _currentChart.SecondChartPath = string.Empty;
+
+                    _secondChartManager.DeleteSecondCharts(SecondChartKeyProvider.GetKey(_currentGroup.Name, _currentChart.Name));
                 }));
             }
         }

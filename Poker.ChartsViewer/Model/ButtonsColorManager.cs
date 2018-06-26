@@ -19,6 +19,11 @@ namespace Poker.ChartsViewer.Model
 
         public void ReadButtonsColorFromFile()
         {
+            if (!Directory.Exists($"{Environment.CurrentDirectory}\\Colors"))
+            {
+                Directory.CreateDirectory($"{Environment.CurrentDirectory}\\Colors");
+            }
+
             if (!File.Exists(_pathToColorFile))
             {
                 var fileStrem =  File.Create(_pathToColorFile);
@@ -74,7 +79,6 @@ namespace Poker.ChartsViewer.Model
             if (_buttonColorByName.ContainsKey(name))
             {
                 return _buttonColorByName[name];
-
             }
             else
             {

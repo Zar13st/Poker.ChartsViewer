@@ -9,12 +9,15 @@ namespace Poker.Charts.ViewModel
         {
             _buttonColorManager  = new ButtonsColorManager();
 
-            LeftChartsManager = new ChartsManagerViewModel(_buttonColorManager);
+            _secondChartManager = new SecondChartManager();
 
-            RightChartsManager = new ChartsManagerViewModel(_buttonColorManager);
+            LeftChartsManager = new ChartsManagerViewModel(_buttonColorManager, _secondChartManager);
+
+            RightChartsManager = new ChartsManagerViewModel(_buttonColorManager, _secondChartManager);
         }
 
         private ButtonsColorManager _buttonColorManager;
+        private SecondChartManager _secondChartManager;
 
         public ChartsManagerViewModel LeftChartsManager { get; private set; } 
 
@@ -23,6 +26,12 @@ namespace Poker.Charts.ViewModel
         public void Begin()
         {
             _buttonColorManager.ReadButtonsColorFromFile();
+
+            _secondChartManager.ReadSecondChartsFromFile();
+
+            LeftChartsManager.OnSecondChartAdding += RightChartsManager.GetSecondChartPath;
+
+            RightChartsManager.OnSecondChartAdding += LeftChartsManager.GetSecondChartPath;
 
             LeftChartsManager.GetChartsGroups();
 

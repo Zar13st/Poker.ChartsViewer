@@ -23,8 +23,8 @@
 
 
         <Image Source="{Binding LeftChartsManager.CurrentMainChart}" />
-        
-        <!--<Image Source="C:\Pets\Poker.ChartsViewer\Poker.ChartsViewer\bin\Debug\Data\01.UTG_a\4b_EPvs.png" Grid.Row="1"/>-->
+
+        <Image Source="{Binding LeftChartsManager.SecondChartPath}" Grid.Row="1"/>
 
         <ListView x:Name="leftGroupsListBox" ItemsSource="{Binding LeftChartsManager.ChartsGroups}" Grid.Column="1" Grid.RowSpan="2" SelectionMode="Single">
             <i:Interaction.Triggers>
@@ -62,17 +62,19 @@
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Command="{Binding LeftChartsManager.ChangeChartBackGroundColorCommand}" Header="Change Color" />
-                    <MenuItem Command="{Binding LeftChartsManager.ChangeGroupBackGroundColorCommand}" Header="Set Main" />
-                    <MenuItem Command="{Binding LeftChartsManager.ChangeGroupBackGroundColorCommand}" Header="Add Second Chart" />
+                    <MenuItem  Header="Set Main" />
+                    <MenuItem Command="{Binding LeftChartsManager.SetSecondChartCommand}" Header="Add Second Chart" />
+                    <MenuItem Command="{Binding LeftChartsManager.DeleteSecondChartCommand}" Header="Delete Second Chart" />
                 </ContextMenu>
             </ListView.ContextMenu>
         </ListView>
 
 
 
-        <Image Source="{Binding RightChartsManager.CurrentMainChart}" Grid.Column="3"/>
         
-        <!--<Image Source="C:\Pets\Poker.ChartsViewer\Poker.ChartsViewer\bin\Debug\Data\01.UTG_a\4b_EPvs.png" Grid.Column="3" Grid.Row="1"/>-->
+        <Image Source="{Binding RightChartsManager.CurrentMainChart}" Grid.Column="3"/>
+
+        <Image Source="{Binding RightChartsManager.SecondChartPath}" Grid.Column="3" Grid.Row="1"/>
 
         <ListView x:Name="rigthGroupsListBox" ItemsSource="{Binding RightChartsManager.ChartsGroups}"  Grid.Column="4" Grid.RowSpan="2" SelectionMode="Single">
             <i:Interaction.Triggers>
@@ -106,6 +108,15 @@
                     <TextBlock Text="{Binding Name}" FontSize="18" Background="{Binding BackGroundColor}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
+
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Command="{Binding RightChartsManager.ChangeChartBackGroundColorCommand}" Header="Change Color" />
+                    <MenuItem  Header="Set Main" />
+                    <MenuItem Command="{Binding RightChartsManager.SetSecondChartCommand}" Header="Add Second Chart" />
+                    <MenuItem Command="{Binding RightChartsManager.DeleteSecondChartCommand}" Header="Delete Second Chart" />
+                </ContextMenu>
+            </ListView.ContextMenu>
         </ListView>
 
     </Grid>
