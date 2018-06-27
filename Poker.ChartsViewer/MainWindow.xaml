@@ -27,15 +27,22 @@
         <Image Source="{Binding LeftChartsManager.SecondChartPath}" Grid.Row="1"/>
 
         <ListView x:Name="leftGroupsListBox" ItemsSource="{Binding LeftChartsManager.ChartsGroups}" Grid.Column="1" Grid.RowSpan="2" SelectionMode="Single">
+            <ListView.ItemContainerStyle >
+                <Style>
+                    <Setter Property="Control.BorderBrush" Value="{Binding BackGroundColor}"/>
+                    <Setter Property="Control.BorderThickness" Value="4"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction Command="{Binding LeftChartsManager.SelectedGroupChangedCommand}"  CommandParameter="{Binding ElementName=leftGroupsListBox, Path=SelectedItem}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
 
-            <ListView.ItemTemplate >
-                <DataTemplate>
-                    <TextBlock Text="{Binding Name}" FontSize="18" Background="{Binding BackGroundColor}"/>
+            <ListView.ItemTemplate>
+                <DataTemplate >
+                    <TextBlock Text="{Binding Name}" FontSize="18" />
                 </DataTemplate>
             </ListView.ItemTemplate>
 
@@ -47,6 +54,13 @@
         </ListView>
 
         <ListView x:Name="leftChartsListBox" ItemsSource="{Binding LeftChartsManager.CurrentGroupCharts}"  Grid.Column="2" Grid.RowSpan="2" SelectionMode="Single">
+            <ListView.ItemContainerStyle >
+                <Style>
+                    <Setter Property="Control.BorderBrush" Value="{Binding BackGroundColor}"/>
+                    <Setter Property="Control.BorderThickness" Value="4"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction Command="{Binding LeftChartsManager.SelectedChartChangedCommand}"  CommandParameter="{Binding ElementName=leftChartsListBox, Path=SelectedItem}"/>
@@ -55,14 +69,14 @@
 
             <ListView.ItemTemplate >
                 <DataTemplate>
-                    <TextBlock Text="{Binding Name}" FontSize="18" Background="{Binding BackGroundColor}"/>
+                    <TextBlock Text="{Binding Name}" FontSize="18"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
 
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Command="{Binding LeftChartsManager.ChangeChartBackGroundColorCommand}" Header="Change Color" />
-                    <MenuItem  Header="Set Main" />
+                    <MenuItem Command="{Binding LeftChartsManager.SetMainCommand}" Header="Set Main" />
                     <MenuItem Command="{Binding LeftChartsManager.SetSecondChartCommand}" Header="Add Second Chart" />
                     <MenuItem Command="{Binding LeftChartsManager.DeleteSecondChartCommand}" Header="Delete Second Chart" />
                 </ContextMenu>
@@ -77,6 +91,13 @@
         <Image Source="{Binding RightChartsManager.SecondChartPath}" Grid.Column="3" Grid.Row="1"/>
 
         <ListView x:Name="rigthGroupsListBox" ItemsSource="{Binding RightChartsManager.ChartsGroups}"  Grid.Column="4" Grid.RowSpan="2" SelectionMode="Single">
+            <ListView.ItemContainerStyle >
+                <Style>
+                    <Setter Property="Control.BorderBrush" Value="{Binding BackGroundColor}"/>
+                    <Setter Property="Control.BorderThickness" Value="4"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction Command="{Binding RightChartsManager.SelectedGroupChangedCommand}"  CommandParameter="{Binding ElementName=rigthGroupsListBox, Path=SelectedItem}"/>
@@ -85,7 +106,7 @@
 
             <ListView.ItemTemplate >
                 <DataTemplate>
-                    <TextBlock Text="{Binding Name}" FontSize="18" Background="{Binding BackGroundColor}"/>
+                    <TextBlock Text="{Binding Name}" FontSize="18"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
 
@@ -97,6 +118,13 @@
         </ListView>
 
         <ListView x:Name="rigthChartsListBox" ItemsSource="{Binding RightChartsManager.CurrentGroupCharts}"  Grid.Column="5" Grid.RowSpan="2" SelectionMode="Single">
+            <ListView.ItemContainerStyle >
+                <Style>
+                    <Setter Property="Control.BorderBrush" Value="{Binding BackGroundColor}"/>
+                    <Setter Property="Control.BorderThickness" Value="4"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction Command="{Binding RightChartsManager.SelectedChartChangedCommand}"  CommandParameter="{Binding ElementName=rigthChartsListBox, Path=SelectedItem}"/>
@@ -105,14 +133,14 @@
 
             <ListView.ItemTemplate >
                 <DataTemplate>
-                    <TextBlock Text="{Binding Name}" FontSize="18" Background="{Binding BackGroundColor}"/>
+                    <TextBlock Text="{Binding Name}" FontSize="18"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
 
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Command="{Binding RightChartsManager.ChangeChartBackGroundColorCommand}" Header="Change Color" />
-                    <MenuItem  Header="Set Main" />
+                    <MenuItem Command="{Binding RightChartsManager.SetMainCommand}" Header="Set Main" />
                     <MenuItem Command="{Binding RightChartsManager.SetSecondChartCommand}" Header="Add Second Chart" />
                     <MenuItem Command="{Binding RightChartsManager.DeleteSecondChartCommand}" Header="Delete Second Chart" />
                 </ContextMenu>

@@ -32,8 +32,8 @@ namespace Poker.Charts.ViewModel
         private RelayCommand _changeGroupBackGroundColorCommand;
         private RelayCommand _changeChartBackGroundColorCommand;
         private RelayCommand _setSecondChartCommand;
-        private RelayCommand _deleteSecondChartCommand;
-
+        private RelayCommand _deleteSecondChartCommand; 
+        private RelayCommand _setMainCommand;
 
         public ChartsManagerViewModel(ButtonsColorManager buttonsColorManager, SecondChartManager secondChartManager)
         {
@@ -223,6 +223,24 @@ namespace Poker.Charts.ViewModel
                     _currentChart.SecondChartPath = string.Empty;
 
                     _secondChartManager.DeleteSecondCharts(SecondChartKeyProvider.GetKey(_currentGroup.Name, _currentChart.Name));
+                }));
+            }
+        }
+
+        public RelayCommand SetMainCommand
+        {
+            get
+            {
+                return _setMainCommand ?? (_setMainCommand = new RelayCommand(() =>
+                {
+                    foreach(var chart in _currentGroup.ChartsInGroup)
+                    {
+                        chart.IsMainChart = false;
+                    }
+
+                    _currentChart.IsMainChart = true;
+
+
                 }));
             }
         }
